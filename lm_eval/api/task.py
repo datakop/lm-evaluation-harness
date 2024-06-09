@@ -845,13 +845,13 @@ class ConfigurableTask(Task):
             )
             if isinstance(config_sampler, str):
                 self.sampler = samplers.get_sampler(config_sampler)(
-                    list(self.fewshot_docs()), self, rnd=self.fewshot_rnd
+                    self.fewshot_docs(), self, rnd=self.fewshot_rnd
                 )
             elif callable(config_sampler) and issubclass(
                 config_sampler, samplers.ContextSampler
             ):
                 self.sampler = config_sampler(
-                    docs=list(self.fewshot_docs()), task=self, rnd=self.fewshot_rnd
+                    docs=self.fewshot_docs(), task=self, rnd=self.fewshot_rnd
                 )
             else:
                 raise TypeError(
